@@ -9,7 +9,10 @@ This project takes a csv and does data analysis on the data within. Uses Pandas 
 ### Files used
 
 bikeshare.py
-
+chicago.csv*
+new_york_city.csv*
+washington.csv*
+*=ignored
 ### Credits
 
 Udacity
