@@ -1,9 +1,12 @@
 import time
 import pandas as pd
 
-CITY_DATA = { 'chicago': 'chicago.csv',
-              'new york city': 'new_york_city.csv',
-              'washington': 'washington.csv' }
+CITY_DATA = {
+    "chicago": "chicago.csv",
+    "new york city": "new_york_city.csv",
+    "washington": "washington.csv",
+}
+
 
 def get_filters():
     """
@@ -17,22 +20,58 @@ def get_filters():
     city = ""
     month = ""
     day = ""
-    print('Hello! Let\'s explore some US bikeshare data!')
+    print("Hello! Let's explore some US bikeshare data!")
     # TO DO: get user input for city (chicago, new york city, washington). HINT: Use a while loop to handle invalid inputs
-    while city not in ["chicago","new york city","washington"]:
-        print("enter city you would like to look at (","chicago","new york city","washington", ")")
+    while city not in ["chicago", "new york city", "washington"]:
+        print(
+            "enter city you would like to look at (",
+            "chicago",
+            "new york city",
+            "washington",
+            ")",
+        )
         city = input().lower()
     # TO DO: get user input for month (all, january, february, ... , june)
-    while month not in ["all", "january", "february", "march","april", "may", "june"]:
-        print("enter month you would like to look at (","all", "January", "February", "March","April", "May", "June", ")")
+    while month not in ["all", "january", "february", "march", "april", "may", "june"]:
+        print(
+            "enter month you would like to look at (",
+            "all",
+            "January",
+            "February",
+            "March",
+            "April",
+            "May",
+            "June",
+            ")",
+        )
         month = input().lower()
 
     # TO DO: get user input for day of week (all, monday, tuesday, ... sunday)
-    while day not in ["all", "monday", "tuesday", "wednesday","thursday", "Friday", "saturday", "sunday"]:
-        print("enter day of the week you would like to look at (","all", "Monday", "Tuesday", "Wednesday","Thursday", "Friday", "Saturday", "Sunday", ")")
+    while day not in [
+        "all",
+        "monday",
+        "tuesday",
+        "wednesday",
+        "thursday",
+        "Friday",
+        "saturday",
+        "sunday",
+    ]:
+        print(
+            "enter day of the week you would like to look at (",
+            "all",
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday",
+            "Sunday",
+            ")",
+        )
         day = input().lower()
 
-    print('-'*40)
+    print("-" * 40)
     return city, month, day
 
 
@@ -50,72 +89,78 @@ def load_data(city, month, day):
     if city == "chicago":
         df = pd.read_csv("chicago.csv")
         if month != "all":
-            df = df[pd.to_datetime(df['Start Time']).dt.month_name() == month.capitalize() ]
+            df = df[
+                pd.to_datetime(df["Start Time"]).dt.month_name() == month.capitalize()
+            ]
         if day != "all":
-            df = df[pd.to_datetime(df['Start Time']).dt.day_name() == day.capitalize() ]
+            df = df[pd.to_datetime(df["Start Time"]).dt.day_name() == day.capitalize()]
     elif city == "washington":
         df = pd.read_csv("washington.csv")
         if month != "all":
-            df = df[pd.to_datetime(df['Start Time']).dt.month_name() == month.capitalize() ]
+            df = df[
+                pd.to_datetime(df["Start Time"]).dt.month_name() == month.capitalize()
+            ]
         if day != "all":
-            df = df[pd.to_datetime(df['Start Time']).dt.day_name() == day.capitalize() ]
+            df = df[pd.to_datetime(df["Start Time"]).dt.day_name() == day.capitalize()]
     else:
         df = pd.read_csv("new_york_city.csv")
         if month != "all":
-            df = df[pd.to_datetime(df['Start Time']).dt.month_name() == month.capitalize() ]
+            df = df[
+                pd.to_datetime(df["Start Time"]).dt.month_name() == month.capitalize()
+            ]
         if day != "all":
-            df = df[pd.to_datetime(df['Start Time']).dt.day_name() == day.capitalize() ]
+            df = df[pd.to_datetime(df["Start Time"]).dt.day_name() == day.capitalize()]
     return df
 
 
 def time_stats(df):
     """Displays statistics on the most frequent times of travel."""
 
-    print('\nCalculating The Most Frequent Times of Travel...\n')
+    print("\nCalculating The Most Frequent Times of Travel...\n")
     start_time = time.time()
 
     # TO DO: display the most common month
     print("most common month")
-    print(pd.to_datetime(df['Start Time']).dt.month_name().mode())
+    print(pd.to_datetime(df["Start Time"]).dt.month_name().mode())
 
     # TO DO: display the most common day of week
     print("most common day of week")
-    print(pd.to_datetime(df['Start Time']).dt.day_name().mode())
+    print(pd.to_datetime(df["Start Time"]).dt.day_name().mode())
 
     # TO DO: display the most common start hour
     print("most common start hour")
-    print(pd.to_datetime(df['Start Time']).dt.hour.mode())
+    print(pd.to_datetime(df["Start Time"]).dt.hour.mode())
 
     print("\nThis took %s seconds." % (time.time() - start_time))
-    print('-'*40)
+    print("-" * 40)
 
 
 def station_stats(df):
     """Displays statistics on the most popular stations and trip."""
 
-    print('\nCalculating The Most Popular Stations and Trip...\n')
+    print("\nCalculating The Most Popular Stations and Trip...\n")
     start_time = time.time()
 
     # TO DO: display most commonly used start station
     print("most commonly used start station")
-    print(df['Start Station'].mode())
+    print(df["Start Station"].mode())
 
     # TO DO: display most commonly used end station
     print("most commonly used end station")
-    print(df['End Station'].mode())
+    print(df["End Station"].mode())
 
     # TO DO: display most frequent combination of start station and end station trip
     print("most frequent combination of start station and end station trip")
-    print(df[['Start Station', 'End Station']].mode())
+    print(df[["Start Station", "End Station"]].mode())
 
     print("\nThis took %s seconds." % (time.time() - start_time))
-    print('-'*40)
+    print("-" * 40)
 
 
 def trip_duration_stats(df):
     """Displays statistics on the total and average trip duration."""
 
-    print('\nCalculating Trip Duration...\n')
+    print("\nCalculating Trip Duration...\n")
     start_time = time.time()
 
     # TO DO: display total travel time
@@ -127,15 +172,15 @@ def trip_duration_stats(df):
     print(df["Trip Duration"].mean())
 
     print("\nThis took %s seconds." % (time.time() - start_time))
-    print('-'*40)
+    print("-" * 40)
 
 
 def user_stats(df):
     """Displays statistics on bikeshare users."""
 
-    print('\nCalculating User Stats...\n')
+    print("\nCalculating User Stats...\n")
     start_time = time.time()
-    
+
     # TO DO: Display counts of user types
     print("counts of user types")
     print(df["User Type"].value_counts())
@@ -151,10 +196,9 @@ def user_stats(df):
     print(df["Birth Year"].max())
     print("most common year of birth")
     print(df["Birth Year"].mode())
-     
 
     print("\nThis took %s seconds." % (time.time() - start_time))
-    print('-'*40)
+    print("-" * 40)
 
 
 def main():
@@ -174,16 +218,16 @@ def main():
             print(df[s:f])
             print("more? (yes/no)")
             if input().lower() == "yes":
-                  raw = "yes"
-                  s = s + 5
-                  f = s + 5
+                raw = "yes"
+                s = s + 5
+                f = s + 5
             else:
-                  raw = "no"
-        restart = input('\nWould you like to restart? Enter yes or no.\n')
-        if restart.lower() != 'yes':
+                raw = "no"
+        restart = input("\nWould you like to restart? Enter yes or no.\n")
+        if restart.lower() != "yes":
             break
 
 
 if __name__ == "__main__":
-    
+
     main()
