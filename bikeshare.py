@@ -34,7 +34,7 @@ def get_filters():
     # TO DO: get user input for month (all, january, february, ... , june)
     while month not in ["all", "january", "february", "march", "april", "may", "june"]:
         print(
-            "enter month you would like to look at (",
+            "Enter month you would like to look at (",
             "all",
             "January",
             "February",
